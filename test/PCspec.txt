@@ -1,0 +1,23 @@
+・ターミナルにて下記のコマンド実行
+
+$system_profiler SPHardwareDataType
+
+Model Name: MacBook
+Model Identifier: MacBook8,1
+Processor Name: Intel Core M
+Processor Speed: 1.1 GHz     …動作周波数1.1GHz
+Number of Processors: 1  …CPU数1
+Total Number of Cores: 2   …トータルコア数1
+L2 Cache (per Core): 256 KB   …L2キャッシュ256KB
+    ※wikiより L2キャッシュ (level2 cache) とは、L1キャッシュより下位のキャッシュメモリである。
+    CPUが動作する時に、CPUの速度とメモリの速度のギャップを埋めるために使われるメインメモリーより
+    小容量ながら高速メモリのこと。2次キャッシュ、あるいはセカンダリキャッシュなどとも呼ばれる。
+L3 Cache: 4 MB   …L3キャッシュ4MB
+Memory: 8 GB   …メインメモリ 8GB
+Boot ROM Version: MB81.0164.B10
+SMC Version (system): 2.25f87    …システム管理コントローラ
+Serial Number (system): C02R5002FWW5
+Hardware UUID: A60E30F6-734F-548A-A5DD-D7F0343590AB
+
+・このMacについて から
+ストレージ : 251GB フラッシュストレージ
