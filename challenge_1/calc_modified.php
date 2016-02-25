@@ -24,31 +24,18 @@ if(is_numeric($pushed)){
     }
 
 }else{
-    if($pushed == "C"){
-        
-        $num = $answer = $log = $point = "";
-        
-    }elseif($pushed == "."){
+    if($pushed == "C"){ //クリアボタンの実装
+        $num = $answer = $log = $point = $operator = "";
+    }
+    elseif($pushed == "."){//小数点機能の実装
         if(empty($point)){
             $num = $num.".";
-            $output = $num;
+            $output = $answer.$operator.$num;
             $point = $pushed;
         }else{
-            $output = $num;
+            $output = $answer.$operator.$num;
         }
     }
-//ゴミ
-// }elseif(empty($point) && $pushed == "."){
-//     $num = $num.".";
-//     $anser = $num;
-//     $output = $answer.$operator.$num;
-//     $point = $pushed;
-// }
-// }elseif($pushed == "."){
-//     $num = $num.".";
-//     $anser = $num;
-//     $output = $answer.$operator.$num;
-// }    
     else if(is_numeric($num)){//数字が入力済みの時のみ実行
 
 	//次の条件分岐で$answerが上書きされてしまうのでその前にログに保存
@@ -102,8 +89,13 @@ if(is_numeric($pushed)){
         if($pushed == "＋" || $pushed == "－" || $pushed == "×" || $pushed == "÷" ){
             $operator 	=   $pushed;//押されたボタンの記号を保持。これによりもう一度計算記号が出現したときに計算が実行できる
             $output 	=   $answer.$pushed;
+            $point = "";
             $num 	=   null;
-        }else{
+        }
+        // elseif($pushed == "."){
+        //     $operator = null;
+        // }
+        else{
             $operator   =   null;
             $output     =   $answer;
             $num        =   $answer;
@@ -114,6 +106,9 @@ if(is_numeric($pushed)){
         $log .= "数値を入力してください<br>";
     }
 }
+//     if($point != null && $operator != null){
+//         $point = null;
+// }
 // var_dump($point);
 
 ?>
