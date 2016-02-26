@@ -8,10 +8,10 @@ $n = $_GET['n'];
 $class = $_GET['class'];
 // $total_price = (float)$total_price;
 
-if($class == '雑貨'){
+if($class == '1'){
     echo '種別:雑貨<br>';
 }
-elseif($class == '生鮮食品'){
+elseif($class == '2'){
     echo '種別:生鮮食品<br>';
 }
 else{
@@ -28,6 +28,7 @@ elseif($total_price >= 3000){
 else{
     $rate = 0;
 }
+
 // var_dump($total_price);echo '<br>';
 // var_dump($n);echo '<br>';
 // var_dump($rate);echo '<br>';

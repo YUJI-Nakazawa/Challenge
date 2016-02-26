@@ -33,9 +33,9 @@ for($i = 0; $i < 20; $i++){
     echo 'A='.$A.'<br>';
 // 課題4
 echo '課題4<br>';
-$stiring = 'A';
+$string = 'A';
 for($i = 0; $i < 30; $i++){
-    $stiring.='A';
+    $string.='A';
 }
 echo $stiring.'<br>';
 //課題5
