@@ -1,5 +1,5 @@
 <?php 
-//課題1
+
 echo '課題4<br>';
 
 function my_profile(){

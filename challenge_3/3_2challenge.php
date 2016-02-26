@@ -1,5 +1,5 @@
 <?php 
-//課題1
+
 echo '課題2<br>';
 
 function hanbetsu($num){

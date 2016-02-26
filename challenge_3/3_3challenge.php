@@ -1,5 +1,5 @@
 <?php 
-//課題1
+
 echo '課題3<br>';
 
 function calc($num1, $num2 = 5, $type = false){
