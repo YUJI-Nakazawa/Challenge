@@ -29,8 +29,9 @@ $ms_hidden = isset($_POST['ms_hidden']) ? $_POST['ms_hidden'] : "";
 // 全要素参照
 $show_hidden = isset($_POST['show_hidden']) ? $_POST['show_hidden'] : "";
 
+const this_page = '7_8-12challenge(or).php';
 
-var_dump($ms_hidden);
+// var_dump($ms_hidden);
 
 // データベースchallenge_dbに接続
 try{
@@ -64,14 +65,23 @@ $update -> bindValue(':tell', $u_tell);
 $update -> bindValue(':age', $u_age);
 $update -> bindValue(':birthday', $u_birthday);
 // 複合検索インスタンス
-$mulsearch_sql = 'select * from profiles where name like :name or age = :age or birthday like :birthday';
+$mulsearch_sql = 'select * from profiles where name like :name or age = :age or birthday = :birthday';
 $mulsearch = $pdo_object -> prepare($mulsearch_sql);
-$mulsearch -> bindValue(':name', '%'.$ms_name.'%');
+
+if(!empty($ms_name)){
+    $mulsearch -> bindValue(':name', '%'.$ms_name.'%');
+}
+else{
+    $mulsearch -> bindValue(':name', $ms_name);
+}
 $mulsearch -> bindValue(':age', $ms_age);
-$mulsearch -> bindValue(':birthday', '%'.$ms_birthday.'%');
+$mulsearch -> bindValue(':birthday', $ms_birthday);
+
 // 全要素参照インスタンス
 $selectAll_sql = 'select * from profiles';
 $selectAll = $pdo_object -> prepare($selectAll_sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +92,7 @@ $selectAll = $pdo_object -> prepare($selectAll_sql);
     </head>
 <body>
     <div><!--課題8-->
-        <form action = "7_8-12challenge.php" method = "post">
+        <form action = "<?php echo this_page ?>" method = "post">
             <h6>データ検索</h6>
             検索する名前:<input type = "text" name = "s_name"><br>
             <input type="hidden" name="s_hidden" value="search">
@@ -90,7 +100,7 @@ $selectAll = $pdo_object -> prepare($selectAll_sql);
         </form>
     </div>
     <div><!--課題9-->
-        <form action = "7_8-12challenge.php" method = "post">
+        <form action = "<?php echo this_page ?>" method = "post">
             <h6>データ挿入</h6>
             挿入するID:<input type = "text" name = "i_id">
             挿入する名前:<input type = "text" name = "i_name">
@@ -102,7 +112,7 @@ $selectAll = $pdo_object -> prepare($selectAll_sql);
         </form>
     </div>
     <div><!--課題10-->
-        <form action = "7_8-12challenge.php" method = "post">
+        <form action = "<?php echo this_page ?>" method = "post">
             <h6>レコード削除</h6>
             ID:<input type = "text" name = "d_id"><br>
             <input type="hidden" name="d_hidden" value="delete">
@@ -110,7 +120,7 @@ $selectAll = $pdo_object -> prepare($selectAll_sql);
         </form>
     </div>
     <div><!--課題11-->
-        <form action = "7_8-12challenge.php" method = "post">
+        <form action = "<?php echo this_page ?>" method = "post">
             <h6>データ上書き</h6>
             対象のID:<input type = "text" name = "u_id">
             上書きする名前:<input type = "text" name = "u_name">
@@ -122,7 +132,7 @@ $selectAll = $pdo_object -> prepare($selectAll_sql);
         </form>
     </div>
     <div><!--課題12-->
-        <form action = "7_8-12challenge.php" method = "post">
+        <form action = "<?php echo this_page ?>" method = "post">
             <h6>複合検索</h6>
             検索する名前:<input type = "text" name = "ms_name">
             検索する年齢:<input type = "text" name = "ms_age">
@@ -132,7 +142,7 @@ $selectAll = $pdo_object -> prepare($selectAll_sql);
         </form>
     </div>
     <div>
-        <form action = "7_8-12challenge.php" method = "post">
+        <form action = "<?php echo this_page ?>" method = "post">
             <h6>全要素表示</h6>
             <input type="hidden" name="show_hidden" value="showall">
             <input type = "submit" value = "テーブルの全要素を参照する">
