@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.timetable{
+    /*text-align: center;*/
+}
+.timetable table{
+    /*display: inline-block;*/
+    /*text-align: center;*/
+    border: solid 1px #000000; border-collapse: collapse;
+} 
+.timetable table tr{
+    text-align: center;
+}
+.lastcolumn{
+    /*border-top: 0px;
+    border-right: 0px;
+    border-bottom: 0px;*/
+}
