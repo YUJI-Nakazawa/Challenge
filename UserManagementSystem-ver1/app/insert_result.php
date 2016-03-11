@@ -1,6 +1,7 @@
 <?php require_once '../common/scriptUtil.php'; ?>
 <?php require_once '../common/dbaccesUtil.php'; ?>
-<?php session_start(); // session_startの位置を変更。理由:htmlのヘッダ情報が確定する前にセッションスタートさせる ?>
+<?php session_start(); 
+        session_chk();?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -17,6 +18,8 @@
         auto_shift();
     }
     else{
+
+        
         $name = $_SESSION['name'];
         $birthday = $_SESSION['birthday'];
         $type = $_SESSION['type'];
@@ -26,26 +29,9 @@
         //db接続を確立
         $insert_db = connect2MySQL();
         
-        //DBに全項目のある1レコードを登録するSQL
-        $insert_sql = "INSERT INTO user_t(name,birthday,tell,type,comment,newDate)"
-                . "VALUES(:name,:birthday,:tell,:type,:comment,:newDate)";
-
-        //クエリとして用意
-        $insert_query = $insert_db->prepare($insert_sql);
-
-        //SQL文にセッションから受け取った値＆現在時をバインド
-        $insert_query->bindValue(':name',$name);
-        $insert_query->bindValue(':birthday',$birthday);
-        $insert_query->bindValue(':tell',$tell);
-        $insert_query->bindValue(':type',$type);
-        $insert_query->bindValue(':comment',$comment);
-        $insert_query->bindValue(':newDate',date('Y-m-d h:i:s')); // time() → date()に変更、さらにformatを追加
+        //DBに全項目のある1レコードを登録
+        insertSQL($name, $birthday, $tell, $type, $comment);
         
-        //SQLを実行
-        $insert_query->execute();
-        
-        //接続オブジェクトを初期化することでDB接続を切断
-        $insert_db=null;
         ?>
 
         <h1>登録結果画面</h1><br>

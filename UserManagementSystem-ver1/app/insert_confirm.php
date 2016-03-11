@@ -1,5 +1,6 @@
 <?php require_once '../common/scriptUtil.php'; ?>
-<?php session_start(); // session_startの位置を変更。理由:htmlのヘッダ情報が確定する前にセッションスタートさせる ?>
+<?php session_start(); 
+        session_chk();?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -10,18 +11,46 @@
 </head>
   <body>
     <?php
+    
     if( empty($_POST['access_chk']) ){ // 直接このページにアクセスした際にトップページに飛ばす
         auto_shift();
     }
     else{
         
-        if( !is_numeric($_POST['year']) || !is_numeric($_POST['month']) || !is_numeric($_POST['day']) ){
-            $birthday_chk = null;
-        }else{
-            $birthday_chk = 1;
-        } // 生年月日の'年'、'月'、'日'の何れかが選択されていなかったら、値がnullの変数$birthday_chkを作成する。
-          // これを条件分岐に利用して生年月日の選択不完全を入力項目が不完全扱いされるようになる。
-        
+        // 生年月日不正確用変数を用意し、これを条件分岐に利用して生年月日の選択不正を切り分ける。
+        if( !is_numeric($_POST['year']) || !is_numeric($_POST['month']) || !is_numeric($_POST['day']) ){ //年、月、日の何れかが数値ではない場合。
+            $birthday_chk = null; // 生年月日不正確認用変数がnull
+        }else{ // 年、月、日がずべて数値の時、
+            if( $_POST['month'] == 4 || $_POST['month'] == 6 || $_POST['month'] == 9 || $_POST['month'] == 11 ){ // 4月、6月、9月、11月の時
+                if( $_POST['day'] == 31 ){ // 日にちが31日なら
+                    $birthday_chk = null; // 生年月日不正確認用変数がnull
+                }
+                else{ // 31日以外なら
+                    $birthday_chk = 1;
+                }
+            }
+            elseif( $_POST['month'] == 2){ // 2月の時
+                if( $_POST['year']%4 == 0 && $_POST['year']%100 != 0 || $_POST['year'] == 0 ){ // うるう年なら
+                    if( $_POST['day'] == 30 || $_POST['day'] = 31 ){ // 日にちが30日、31日なら
+                        $birthday_chk = null; // 生年月日不正確認用変数がnull
+                    }
+                    else{ // 30日、31日以外なら
+                        $birthday_chk = 1;
+                    }
+                }
+                else{ //うるう年以外なら
+                    if( $_POST['day'] == 29 || $_POST['day'] == 30 || $_POST['day'] == 31 ){ // 日にちが29日、30日、31日なら
+                        $birthday_chk = null; // 生年月日不正確認用変数がnull
+                    }
+                    else{ // 29日、30日、31日以外なら、
+                        $birthday_chk = 1;
+                    }
+                }
+            }
+            else{
+                $birthday_chk = 1;
+            }
+        }
           // ※1
           $post_name = $_POST['name'];
           //date型にするために1桁の月日を2桁にフォーマットしてから格納
@@ -46,7 +75,7 @@
         if(!empty($_POST['name']) && !empty($birthday_chk) && !empty($_POST['type']) //$_POST['year']を$birthday_chk
                 && !empty($_POST['tell']) && !empty($_POST['comment'])){
         
-        // if(!empty($_POST['name']) && !empty($_POST['year']) && !empty($_POST['type']) 
+        // ↑に修正 if(!empty($_POST['name']) && !empty($_POST['year']) && !empty($_POST['type']) 
         //         && !empty($_POST['tell']) && !empty($_POST['comment'])){
             
             // $post_name = $_POST['name']; ~ $_SESSION['comment'] = $post_comment;までの位置を
@@ -91,16 +120,16 @@
             if( empty($_POST['name']) ){ // 名前が不完全
                 echo '<font color="red" size="2">※<strong>お名前</strong>の入力が不完全です</font><br>';
             }
-            if( empty($_POST['year']) ){// 生年月日が不完全
-                echo '<font color="red" size="2">※<strong>生年月日</strong>の入力が不完全です</font><br>';
+            if( empty($birthday_chk) ){// 生年月日が不完全
+                echo '<font color="red" size="2">※<strong>生年月日</strong>の入力に誤りがあります</font><br>';
             }
-            if( empty($_POST['type']) ){// 生年月日が不完全
+            if( empty($_POST['type']) ){// 種別が不完全
                 echo '<font color="red" size="2">※<strong>種別</strong>の入力が不完全です</font><br>';
             }
-            if( empty($_POST['tell']) ){// 生年月日が不完全
+            if( empty($_POST['tell']) ){// 電話番号が不完全
                 echo '<font color="red" size="2">※<strong>電話番号</strong>の入力が不完全です</font><br>';
             }
-            if( empty($_POST['comment']) ){// 生年月日が不完全
+            if( empty($_POST['comment']) ){// 自己紹介が不完全
                 echo '<font color="red" size="2">※<strong>自己紹介</strong>の入力が不完全です</font><br>';
             }
 

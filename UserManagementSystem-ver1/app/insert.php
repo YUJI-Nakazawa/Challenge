@@ -1,5 +1,8 @@
+<?php require_once '../common/defineUtil.php'; ?>
 <?php require_once '../common/scriptUtil.php'; ?>
-<?php session_start(); // session_startの位置を変更。理由:htmlのヘッダ情報が確定する前にセッションスタートさせる ?>
+<?php session_start(); // session_startの位置を変更。理由:htmlのヘッダ情報が確定する前にセッションスタートさせる 
+      $_SESSION['last_access']=time(); // ページにとどまった時間を管理するためセッションに現在時刻を代入
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -44,6 +47,8 @@
     <select name="day">
         <option value="--">--</option>
         <?php
+        // if()
+        // if($month = )
         for($i = 1; $i<=31; $i++){ ?>
         <option value="<?php echo $i; ?>" <?php if($i == $post_day){echo 'selected';} ?> ><?php echo $i;?></option>
         <?php } ?>
