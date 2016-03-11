@@ -27,7 +27,7 @@
         $comment = $_SESSION['comment'];
 
         //db接続を確立
-        $insert_db = connect2MySQL();
+        // $insert_db = connect2MySQL();
         
         //DBに全項目のある1レコードを登録
         insertSQL($name, $birthday, $tell, $type, $comment);

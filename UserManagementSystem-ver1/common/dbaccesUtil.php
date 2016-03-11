@@ -3,7 +3,7 @@
 //DBへの接続用を行う。成功ならPDOオブジェクトを、失敗なら中断、メッセージの表示を行う
 function connect2MySQL(){
     try{
-        $pdo = new PDO('mysql:host=localhost;dbname=challenge_db;charset=utf8','root','roo');
+        $pdo = new PDO('mysql:host=localhost;dbname=challenge_db;charset=utf8','root','root');
         $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //PDOインスタンスにエラーレポートを出させ、例外を投げる属性を付与
         return $pdo;
     } catch (PDOException $e) {
@@ -12,13 +12,12 @@ function connect2MySQL(){
 }
 ////DBに全項目のある1レコードを登録。失敗の場合、処理を中断し、エラーメッセージを表示する。
 function insertSQL($name, $birthday, $tell, $type, $comment){
-    global $insert_db;
 
     //DBに全項目のある1レコードを登録するSQL
     $insert_sql = "INSERT INTO user_t(name,birthday,tell,type,comment,newDate)"
             . "VALUES(:name,:birthday,:tell,:type,:comment,:newDate)";
     //クエリとして用意
-    $insert_query = $insert_db->prepare($insert_sql);
+    $insert_query = connect2MySQL()->prepare($insert_sql);
     
     //SQL文にセッションから受け取った値＆現在時をバインド
     $insert_query->bindValue(':name',$name);
