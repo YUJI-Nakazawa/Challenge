@@ -157,11 +157,13 @@ function profile_detail($id){
 function update_profile($id, $name, $birthday, $type, $tell, $comment){
     //db接続を確立
     $update_db = connect2challenge_db();
-    
-    
-    
+    //指定したuserIDのあるレコードの情報を上書きするSQL
     $update_sql = "UPDATE user_t SET name=:name, birthday=:birthday, type=:type,".
-                  " tell=:tell, comment=:comment WHERE userID=:id";
+                  " tell=:tell, comment=:comment, newDate=:newDate WHERE userID=:id";
+    //現在時をdatetime型で取得
+    $datetime =new DateTime();
+    $date = $datetime->format('Y-m-d H:i:s');
+    
     //クエリとして用意
     $update_query = $update_db->prepare($update_sql);
     
@@ -171,6 +173,7 @@ function update_profile($id, $name, $birthday, $type, $tell, $comment){
     $update_query->bindValue(':type',$type);
     $update_query->bindValue(':tell',$tell);
     $update_query->bindValue(':comment',$comment);
+    $update_query->bindValue(':newDate',$date);
     
     //SQLを実行
     try{
@@ -186,6 +189,7 @@ function delete_profile($id){
     //db接続を確立
     $delete_db = connect2challenge_db();
     
+    //指定したuserIDの1レコードを削除するSQL
     $delete_sql = "DELETE FROM user_t WHERE userID=:id"; //DELEtE → DELETE
     
     //クエリとして用意

@@ -1,6 +1,7 @@
 <?php require_once '../common/scriptUtil.php'; ?>
 <?php require_once '../common/dbaccesUtil.php'; ?>
 <?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -10,10 +11,11 @@
 </head>
     <body>
     <?php
-    if(!$_POST['mode']=="RESULT"){
+    //確認画面から「はい」ボタンを押したん場合のみ処理を行う。
+    $mode = isset($_POST['mode']) ? $_POST['mode'] : "";
+    if($mode != "INSERT_RESULT"){
         echo 'アクセスルートが不正です。もう一度トップページからやり直してください<br>';
     }else{
-
         $name = $_SESSION['name'];
         //date型にするために1桁の月日を2桁にフォーマットしてから格納
         $birthday = $_SESSION['year'].'-'.sprintf('%02d',$_SESSION['month']).'-'.sprintf('%02d',$_SESSION['day']);

@@ -7,6 +7,15 @@ require_once '../common/defineUtil.php';
  */
 function return_top(){
     return "<a href='".ROOT_URL."'>トップへ戻る</a>";
+    session_delete();
+}
+
+function session_delete(){
+    session_unset();
+    if (isset($_COOKIE['PHPSESSID'])) {
+        setcookie('PHPSESSID', '', time() - 1800, '/');
+    }
+    session_destroy();
 }
 
 /**
@@ -35,6 +44,10 @@ function form_value($name){
         if(isset($_SESSION[$name])){
             return $_SESSION[$name];
         }
+    }
+    else{ //再入力時でない時、セッションにｎullを入れる。
+        $_SESSION[$name] = null;
+        return $_SESSION[$name];
     }
 }
 

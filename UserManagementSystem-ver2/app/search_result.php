@@ -3,18 +3,6 @@ require_once '../common/defineUtil.php';
 require_once '../common/scriptUtil.php';
 require_once '../common/dbaccesUtil.php';
 session_start();
-//検索詳細画面から戻ってきた場合にセッションの値をそのままにする。
-if(isset($_POST['mode']) && $_POST['mode'] == "BACKtoSEARCH_RESULT"){
-    $name = $_SESSION['name'];
-    $year = $_SESSION['year'];
-    $type = $_SESSION['type'];
-}
-//GETの値をセッションに格納しつつ、値を変数に格納する。
-else{
-    $name = bind_g2s('name');
-    $year = bind_g2s('year');
-    $type = bind_g2s('type');
-}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -23,6 +11,20 @@ else{
       <title>検索結果画面</title>
 </head>
     <body>
+        <?php
+        //検索詳細画面から戻ってきた場合にセッションの値をそのままにする。
+        $mode = isset($_POST['mode']) ? $_POST['mode'] : "";
+        if($mode == "BACKtoSEARCH_RESULT"){
+            $name = $_SESSION['name'];
+            $year = $_SESSION['year'];
+            $type = $_SESSION['type'];
+        }
+        //GETの値をセッションに格納しつつ、値を変数に格納する。
+        else{
+            $name = bind_g2s('name');
+            $year = bind_g2s('year');
+            $type = bind_g2s('type');
+        }?>
         <h1>検索結果</h1>
         <table border=1>
             <tr>

@@ -53,8 +53,8 @@
         自己紹介文
         <br>
         <textarea name="comment" rows=10 cols=50 style="resize:none" wrap="hard"><?php echo form_value('comment'); ?></textarea><br><br>
-        
-        <input type="hidden" name="mode"  value="CONFIRM">
+        <!-- 登録画面から遷移したことを示すフラグを渡す -->
+        <input type="hidden" name="mode" value="INSERT_CONFIRM">
         <input type="submit" name="btnSubmit" value="確認画面へ">
     </form>
     <br>
